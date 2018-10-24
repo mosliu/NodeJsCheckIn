@@ -1,0 +1,33 @@
+{
+  "name": "nodejscheckin",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "test": "mocha test/*/**.js",
+    "run": "node src/main.js"
+  },
+  "author": "Liuxuan",
+  "license": "ISC OR GPL-3.0",
+  "keywords": [
+    "v2ex",
+    "smzdm",
+    "checkin"
+  ],
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "cron": "^1.4.1",
+    "debug": "^4.1.0",
+    "lodash": "^4.17.11",
+    "log4js": "^3.0.6",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-mocha": "^5.2.0",
+    "mocha": "^5.2.0",
+    "should": "^13.2.3"
+  }
+}
