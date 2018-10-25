@@ -7,7 +7,6 @@ const log = require('../log/log');
 const reqUtil = require('../utils/request_util');
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36';
-const refererQiandao = 'http://www.smzdm.com/qiandao/';
 const baseHeader = {
   'User-Agent': UA,
 };
@@ -66,11 +65,48 @@ class Smzdm {
     }
     // eslint-disable-next-line
     const checkinUrl = `https://zhiyou.smzdm.com/user/checkin/jsonp_checkin?callback=jQuery112409568846254764496_${new Date().getTime()}&_=${new Date().getTime()}`;
-    const checkinreferer = 'http://www.smzdm.com/qiandao/';
+    const checkinReferer = 'http://www.smzdm.com/qiandao/';
     let option = reqUtil.genBaseOptionFromUrl(checkinUrl);
     option = _.merge(option, this.baseOption);
     option.method = 'GET';
-    option.headers.referer = checkinreferer;
+    option.headers.referer = checkinReferer;
+    option.headers.Cookie = this.userConfig.cookie;
+    // log.log(option);
+    const response = await this.request(option);
+    let body = response.body;
+    // log.log(body);
+    if (body.indexOf('\\u') > 0) {
+      body = unescape(body.replace(/\\u/g, '%u'));
+    }
+    // jQuery112409568846254764496_1540471573463({"error_code":0,"error_msg":"","data":{"add_point":0,"checkin_num":1,"point":12946,"exp":12956,"gold":788,"prestige":0,"rank":23,"slogan":"<div class=\"signIn_data\">\u4eca\u65e5\u5df2\u9886<span class=\"red\">13<\/span>\u79ef\u5206\uff0c\u518d\u7b7e\u5230<span class=\"red\">2<\/span>\u5929\u53ef\u9886<span class=\"red\">15<\/span>\u79ef\u5206<\/div>","cards":4}})
+
+    const jsonBody = body.slice(body.indexOf('({') + 1, body.lastIndexOf('})') + 1);
+    // log.log(jsonBody);
+    const json = JSON.parse(jsonBody);
+    this.info.checkin.json = json;
+    log.log(json);
+    return json;
+  }
+
+
+  /**
+   * 回帖拿分
+   *
+   * @memberof Smzdm
+   */
+  async reply() {
+    log.log(`SMZDM start reply ,Name :[${this.userConfig.username}],Please wait...`);
+    if (this.isConfigWrong) {
+      log.log('SMZDM start checking error,Config is wrong');
+      return null;
+    }
+    // eslint-disable-next-line
+    const replyUrl = `https://zhiyou.smzdm.com/user/comment/ajax_set_comment?callback=jQuery111006551744323225079_${new Date().getTime()}&type=3&pid=${pId}&parentid=0&vote_id=0&vote_type=&vote_group=&content=${encodeURI(commitList[Math.floor(Math.random() * commitList.length)])}&_=${new Date().getTime()}`;
+    const replyReferer = 'https://zhiyou.smzdm.com/user/submit/';
+    let option = reqUtil.genBaseOptionFromUrl(replyUrl);
+    option = _.merge(option, this.baseOption);
+    option.method = 'GET';
+    option.headers.referer = replyReferer;
     option.headers.Cookie = this.userConfig.cookie;
     // log.log(option);
     const response = await this.request(option);
