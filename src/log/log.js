@@ -11,11 +11,11 @@ const score = log4js.getLogger('score');
 
 const logUtil = {};
 // 封装错误日志
-logUtil.log = function (ctx) {
+logUtil.log = function log(ctx) {
   logger.info(ctx);
 };
 
-logUtil.err = function (ctx) {
+logUtil.err = function err(ctx) {
   error.error(ctx);
 };
 logUtil.score = function (ctx) {

@@ -1,7 +1,7 @@
 const CronJob = require('cron').CronJob;
 const debug = require('debug')('Cron:smzdm');
 const config = require('../config');
-const Smzdm = require('../../bak/actuator/smzdm');
+const Smzdm = require('../actuator/smzdm');
 // const crawlers = require('../crawlers');
 
 const smzdmConf = config.jsons.smzdm;

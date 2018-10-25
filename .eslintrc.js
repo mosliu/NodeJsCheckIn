@@ -10,6 +10,9 @@ module.exports = {
         "mocha"
     ],
     "rules": {
+        "max-len": ["error", {
+            "ignoreComments": true
+        }],
         "class-methods-use-this": "off",
         "no-console": "off",
         "no-param-reassign": "off",

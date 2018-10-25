@@ -5,7 +5,7 @@
 // const cronAnalyzer = require('./cron_analyzers');
 const cronSmzdmCheckin = require('./cron_smzdm_checkin');
 
-const start = function () {
+const start = function start() {
   cronSmzdmCheckin.start();
 };
 module.exports = {
