@@ -1,5 +1,7 @@
 /.idea
 /.vscode
 /bak
+/db
+/logs
 /node_modules
 /src/config/jsons
