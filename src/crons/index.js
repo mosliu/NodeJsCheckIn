@@ -6,7 +6,7 @@
 const cronSmzdmCheckin = require('./cron_smzdm_checkin');
 
 const start = function () {
-  const clawlers = cronSmzdmCheckin();
+  cronSmzdmCheckin.start();
 };
 module.exports = {
   start,

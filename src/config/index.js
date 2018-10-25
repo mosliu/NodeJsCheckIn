@@ -8,14 +8,19 @@ const debug = require('debug')('config');
 const dirConf = require('./dirs.conf');
 const cronConf = require('./cron.conf');
 const logsConf = require('./logs.conf');
+const jsonConf = require('./loadJson');
+
 
 function existsConfigFile(filename) {
   return fs.existsSync(path.join(dirConf.config, filename));
 }
 
-const dev = existsConfigFile('dev.js') ? require('./dev') : { devconf: 'load error' };
-const pro = existsConfigFile('pro.js') ? require('./pro') : { proconf: 'load error' };
-
+const dev = existsConfigFile('dev.js') ? require('./dev') : {
+  devconf: 'load error',
+};
+const pro = existsConfigFile('pro.js') ? require('./pro') : {
+  proconf: 'load error',
+};
 
 // 返回的config对象
 let config = {
@@ -30,6 +35,7 @@ let config = {
   dir: dirConf,
   log: logsConf,
   cron: cronConf,
+  jsons: merge(jsonConf(dirConf.confJson), jsonConf(dirConf.confPrivateJson)),
 };
 
 config = merge(config, process.env.NODE_ENV === 'development' ? dev : pro);

@@ -1,20 +1,27 @@
-const cron = require('cron');
-const debug = require('debug')('Cron:Crawler');
+const CronJob = require('cron').CronJob;
+const debug = require('debug')('Cron:smzdm');
 const config = require('../config');
+const Smzdm = require('../../bak/actuator/smzdm');
 // const crawlers = require('../crawlers');
 
-const cronconf = config.cron.crawler;
+const smzdmConf = config.jsons.smzdm;
+const smzdmArray = smzdmConf.map(conf => new Smzdm(conf));
+const cronconf = config.cron.smzdm;
 
-async function startCrawler() {
-  debug('Crawler Cron triggered ,Crawler Start');
-  // await crawlers.start();
+async function startCheckin() {
+  debug('Smzdm Cron triggered ,Start checking in');
+  await Promise.all(
+    smzdmArray.map(e => e.start()),
+  );
 }
 
-
-function startCrawl() {
+function start() {
   // '0 * * * *'
-  return new cron.CronJob(cronconf.crontab, (async () => {
-    await startCrawler();
+  return new CronJob(cronconf.crontab, (async () => {
+    await startCheckin();
   }), null, true, 'Asia/Chongqing');
 }
-module.exports = startCrawl;
+module.exports = {
+  start,
+  startCheckin,
+};

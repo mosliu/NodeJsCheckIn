@@ -10,9 +10,18 @@ module.exports = {
         "mocha"
     ],
     "rules": {
-      "no-console": "off",
-      "no-param-reassign": "off",
-      "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js"]}]
-      
+        "class-methods-use-this": "off",
+        "no-console": "off",
+        "no-param-reassign": "off",
+        "import/no-extraneous-dependencies": ["error", {
+            "devDependencies": ["**/*.test.js", "**/*.spec.js"]
+        }],
+        "prefer-destructuring": ["error", {
+            "array": false,
+            "object": false
+        }, {
+            "enforceForRenamedProperties": false
+        }]
+
     }
 };

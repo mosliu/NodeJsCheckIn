@@ -2,3 +2,4 @@
 /.vscode
 /bak
 /node_modules
+/src/config/jsons
