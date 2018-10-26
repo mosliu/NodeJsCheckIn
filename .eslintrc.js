@@ -11,7 +11,13 @@ module.exports = {
     ],
     "rules": {
         "max-len": ["error", {
-            "ignoreComments": true
+            "code":100,
+            "ignoreComments": true,
+            "ignoreTrailingComments": true,
+            "ignoreUrls": true ,
+            "ignoreStrings": true,
+            "ignoreTemplateLiterals": true,
+            "ignoreRegExpLiterals": true 
         }],
         "class-methods-use-this": "off",
         "no-console": "off",

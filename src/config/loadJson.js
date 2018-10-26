@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const debug = require('debug')('JsonConfigLoader');
-const dirs = require('./dirs.conf');
+const _ = require('lodash');
 
 /**
  * 加载.json的配置文件。
@@ -21,11 +21,15 @@ function loadJasonFiles(jsonpath) {
     })
     .forEach((filename) => {
       // eslint-disable-next-line
-      const res = require(path.resolve(jsonpath, filename));
+      // const res = require(path.resolve(jsonpath, filename));
+      const res = JSON.parse(fs.readFileSync(path.resolve(jsonpath, filename)));
       loadedconf.push(res);
       debug(`Config file ${filename} Loaded`);
     });
-  return Object.assign(...loadedconf);
+  // return Object.assign(...loadedconf);
+  const rtn = _.assign(...loadedconf);
+  // console.log(rtn);
+  return rtn;
 }
 
 // const jsons = loadJasonFiles();

@@ -3,12 +3,12 @@
  */
 
 const smzdm = {
-  // 每小时
-  crontab: '0 26 * * * *',
+  // 每天6：50 am
+  crontab: '0 50 6 * * *',
 };
 const v2ex = {
   // 每小时
-  crontab: '0 41 * * * *',
+  crontab: '0 0 * * * *',
 };
 const cronConf = {
   smzdm,
