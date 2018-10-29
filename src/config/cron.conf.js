@@ -8,7 +8,7 @@ const smzdm = {
 };
 const v2ex = {
   // 每小时
-  crontab: '0 0 * * * *',
+  crontab: '0 29 10 * * *',
 };
 const cronConf = {
   smzdm,

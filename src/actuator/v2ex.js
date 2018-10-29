@@ -71,6 +71,9 @@ class V2ex {
     const response = await this.request(option);
     const body = response.body;
     // log.log(body);
+    if (body.indexOf('你要查看的页面需要先登录') > 0) {
+      this.errormsg = '未登录';
+    }
     const $ = cheerio.load(body);
     // 获取once属性值
     // "location.href = '/mission/daily/redeem?once=82512';"
@@ -80,7 +83,7 @@ class V2ex {
     const once = oncestr.substring(oncestr.indexOf('once=') + 5, oncestr.indexOf('\';'));
     this.once = once;
     log.log(`v2ex[${this.userConfig.username}] got Once:${this.once}`);
-    log.log(this.request.jar());
+    // log.log(this.request.jar());
   }
 
   /**
@@ -136,7 +139,7 @@ class V2ex {
 
 async function test() {
   // const cookie = 'PHPSESSID=q4oharska96qqmg76vtg2tu2k7; isFirstUser=yes; v2ex_user_source=478D479151F039B961EDB509F46E334C; amvid=eafd63305f212c617baa011e7db774d5; firstUser2017=1; device_id=10202936301506410466825631623753b26a6eb03e4c5f2397a9cdf821; wt3_sid=%3B999768690672041; __ckguid=KxQ2TWCxwGiaPBA2bSInng4; __jsluid=8e2bf9f5d79f6995a851dc467bf9c45f; sess=OWNkNDV8MTU0MDg2MTcxNHwzMTExNzk3NzU4fDMyODBlY2Q0NTZmMzI0YjRhMWFkOGJhZGRjMDc3MmRl; user=user%3A3111797758%7C3111797758; v2ex_id=3111797758; userId=3111797758; v2ex_user_view=DB420E311FCBC2562BE4E9874257F4F1; wt3_eid=%3B999768690672041%7C2149544248900294689%232153992149000099519; ad_date=25; zdm_qd=%7B%7D; ad_json_feed=%7B%22J_feed_ad1%22%3A%7B%22number%22%3A0%2C%22surplus%22%3A2%7D%2C%22J_feed_ad3%22%3A%7B%22number%22%3A0%2C%22surplus%22%3A2%7D%7D; bannerCounter=%5B%7B%22number%22%3A0%2C%22surplus%22%3A1%7D%2C%7B%22number%22%3A0%2C%22surplus%22%3A1%7D%2C%7B%22number%22%3A0%2C%22surplus%22%3A1%7D%2C%7B%22number%22%3A0%2C%22surplus%22%3A2%7D%2C%7B%22number%22%3A0%2C%22surplus%22%3A1%7D%2C%7B%22number%22%3A0%2C%22surplus%22%3A2%7D%5D';
-  const cookie = '_ga=GA1.2.2064394291.1536798826; A2="2|1:0|10:1538013054|2:A2|56:NDcyODNiMzEwN2QwZTk4YTE5NzlkOWM0MGFiNmZkNGVlMmZiNmZhNw==|5ea7cedcd20ef04ff74683970c74683db73efbdb1fde99eff3669698c900d6a9"; V2EX_TAB="2|1:0|10:1539914056|8:V2EX_TAB|8:dGVjaA==|9c6ac3aaba9f913f3f8311af12b16c358abb106e690d7d3188c30df0e09074fd"; PB3_SESSION="2|1:0|10:1540176171|11:PB3_SESSION|40:djJleDo2MC4yMDguMTEzLjI1NDo4MTg2MDAyMA==|aa4f1f2d1702c2faa81d5b1cd044e5f987cc64ee25b8aa9263426f336f92181a"; V2EX_LANG=zhcn';
+  const cookie = '_ga=GA1.2.2064394291.1536798826; A2="2|1:0|10:1540770611|2:A2|56:NDcyODNiMzEwN2QwZTk4YTE5NzlkOWM0MGFiNmZkNGVlMmZiNmZhNw==|0be714f519674b2ab2031d42a597fca5ce9079d3eb2f2dc258187cdca6be6488"; V2EX_TAB="2|1:0|10:1539914056|8:V2EX_TAB|8:dGVjaA==|9c6ac3aaba9f913f3f8311af12b16c358abb106e690d7d3188c30df0e09074fd"; V2EX_LANG=zhcn; PB3_SESSION="2|1:0|10:1540770546|11:PB3_SESSION|40:djJleDo2MC4yMDguMTEzLjI1NDozMDMwMjIzOA==|b968ab9b1f7bbc1d6a88c0594b456bc9c9fadf108fe7cd1e1319ee185316b2fb"';
   const a = new V2ex({
     username: '',
     cookie,
